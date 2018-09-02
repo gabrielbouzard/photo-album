@@ -56,7 +56,7 @@ public class PhotoAlbumClient {
 			}
 			
 		} catch (Exception e) {
-			System.out.println("photo-album encountered an error. Please try again and contact the developer if the issue persists:  ");
+			System.out.println("photo-album encountered an error. Please try again and contact the developer if the issue persists: https://github.com/gabrielbouzard/photo-album.git");
 		}
 	}	
 }
