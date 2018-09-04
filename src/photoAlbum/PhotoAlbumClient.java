@@ -1,0 +1,74 @@
+package photoAlbum;
+
+import java.io.IOException;
+import java.util.List;
+
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.JsonObjectParser;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.common.graph.ElementOrder.Type;
+import com.google.gson.reflect.TypeToken;
+
+public class PhotoAlbumClient {
+	
+	static HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+	static JsonFactory JSON_FACTORY = new JacksonFactory();
+	
+    private static boolean isInteger(String input) {
+		boolean integer = true;
+		try {
+			Integer.parseInt(input.trim());
+		} catch(NumberFormatException e) {
+			integer = false;
+		}
+		return integer;
+	}
+	
+	public static void main(String args[]) throws IOException {
+		
+		Integer albumId = null;
+		
+		if (args.length == 0) {
+			System.out.println("Proper Usage: photo-album <albumId>");
+			System.exit(0);
+		} else if (isInteger(args[0]) == false) {
+			System.out.println("Proper Usage: photo-album <albumId>");
+			System.exit(0);
+		} else if (isInteger(args[0]) == true) {
+			albumId = Integer.parseInt(args[0].trim());
+		}	
+	
+//		try {
+			
+        HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory((HttpRequest request) -> {
+              request.setParser(new JsonObjectParser(JSON_FACTORY));
+        });
+        PhotoAlbumURL url = new PhotoAlbumURL("https://jsonplaceholder.typicode.com/photos");
+        url.albumId = albumId;
+		HttpRequest request = null;
+		try {
+			request = requestFactory.buildGetRequest(url);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("oops");
+
+//			e.printStackTrace();
+	//		System.exit(0);
+		}
+		java.lang.reflect.Type type = new TypeToken<List<PhotoAlbum>>() {}.getType();		
+		List<PhotoAlbum> photoAlbums = (List<PhotoAlbum>)request.execute().parseAs(type);
+		for (var photoAlbum : photoAlbums) {
+			System.out.println("[" + photoAlbum.getAlbumId() + "] " + photoAlbum.getTitle());
+		}
+		
+//		} catch (Exception e) {
+//			System.out.println(e);
+//			System.out.println("photo-album encountered an error. Please try again and contact the developer if the issue persists: https://github.com/gabrielbouzard/photo-album.git");
+//		}
+	}
+}
