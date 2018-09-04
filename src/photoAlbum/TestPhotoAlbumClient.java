@@ -17,6 +17,9 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 public class TestPhotoAlbumClient extends FunctionalTest {
 	
@@ -36,6 +39,15 @@ public class TestPhotoAlbumClient extends FunctionalTest {
     @Test
     public void verifyAlbumId100() {  	
     	given().params("albumId", "100").when().get().then().body(CoreMatchers.containsString("ut maxime reiciendis veritatis"));
+    }
+    
+    @Test
+    public void verifyNumberTracks() {  	
+    	String pa = given().params("albumId", "100").when().get().asString();
+		JsonParser parser = new JsonParser();
+		JsonElement je = parser.parse(pa);
+		JsonArray ja = je.getAsJsonArray();
+		assert(ja.size() == 50);		
     }
 	
 	@Test
@@ -70,4 +82,6 @@ public class TestPhotoAlbumClient extends FunctionalTest {
 		assert(mimeType.contains(jsonMimeType));
 		
 	}	
+	
+	
 }
