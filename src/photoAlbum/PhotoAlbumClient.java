@@ -63,7 +63,6 @@ public class PhotoAlbumClient {
 			for(PhotoAlbum photoAlbum : photoAlbums) {
 				System.out.println("[" + photoAlbum.getId() + "] " + photoAlbum.getTitle());
 			}
-			System.out.println(photoAlbums.size());
 		
 		} catch (Exception e) {
 			System.out.println("photo-album encountered an error. Please try again and contact the developer if the issue persists: https://github.com/gabrielbouzard/photo-album.git");

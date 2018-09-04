@@ -4,7 +4,6 @@ import static com.jayway.restassured.RestAssured.given;
 
 import java.io.IOException;
 import java.util.Random;
-
 import org.apache.http.client.ClientProtocolException;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
@@ -42,14 +41,14 @@ public class TestPhotoAlbumClient extends FunctionalTest {
     }
     
     @Test
-    public void verifyNumberTracks() {  	
+    public void verifyNumberPhotos() {  	
     	String pa = given().params("albumId", "100").when().get().asString();
 		JsonParser parser = new JsonParser();
 		JsonElement je = parser.parse(pa);
 		JsonArray ja = je.getAsJsonArray();
 		assert(ja.size() == 50);		
     }
-	
+    
 	@Test
 	public void path() throws ClientProtocolException, IOException {
 				  

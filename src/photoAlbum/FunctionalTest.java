@@ -28,7 +28,6 @@ public class FunctionalTest {
             baseHost = "https://jsonplaceholder.typicode.com";
         }
         RestAssured.baseURI = baseHost;
-        System.out.println(baseHost+basePath+"?albumId=100");
         
 	}
 	
@@ -38,8 +37,10 @@ public class FunctionalTest {
       for (Failure failure : result.getFailures()) {
          System.out.println(failure.toString());
       }
-		
-      System.out.println(result.wasSuccessful());
+	
+      if (result.wasSuccessful()) {
+    	  System.out.println("Tests were successful.");
+      }
    }
 	
 }
