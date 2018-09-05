@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="6" failures="0" name="client.TestPhotoAlbumClient" time="3.036" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="client.TestPhotoAlbumClient" time="2.044" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="10.0.2+13-Ubuntu-1ubuntu0.18.04.1"/>
@@ -25,7 +25,7 @@
 "/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Linux"/>
-    <property name="classworlds.conf" value="/home/gabriel/eclipse-workspace/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf3378962214093968703.tmp"/>
+    <property name="classworlds.conf" value="/home/gabriel/eclipse-workspace/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf11264318892268930698.tmp"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib"/>
     <property name="jdk.debug" value="release"/>
@@ -59,10 +59,10 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="client.TestPhotoAlbumClient" name="verifyAlbumId100" time="1.397"/>
-  <testcase classname="client.TestPhotoAlbumClient" name="verifyNumberTracks" time="0.168"/>
-  <testcase classname="client.TestPhotoAlbumClient" name="connected" time="0.56"/>
-  <testcase classname="client.TestPhotoAlbumClient" name="contentType" time="0.248"/>
-  <testcase classname="client.TestPhotoAlbumClient" name="path" time="0.323"/>
-  <testcase classname="client.TestPhotoAlbumClient" name="invalidAlbum" time="0.34"/>
+  <testcase classname="client.TestPhotoAlbumClient" name="verifyAlbumId100" time="1.236"/>
+  <testcase classname="client.TestPhotoAlbumClient" name="verifyNumberTracks" time="0.17"/>
+  <testcase classname="client.TestPhotoAlbumClient" name="connected" time="0.2"/>
+  <testcase classname="client.TestPhotoAlbumClient" name="contentType" time="0.11"/>
+  <testcase classname="client.TestPhotoAlbumClient" name="path" time="0.143"/>
+  <testcase classname="client.TestPhotoAlbumClient" name="invalidAlbum" time="0.185"/>
 </testsuite>
