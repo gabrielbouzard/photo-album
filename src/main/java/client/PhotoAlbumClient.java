@@ -1,7 +1,6 @@
 package client;
 
-
-import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 import com.google.api.client.http.HttpRequest;
@@ -18,7 +17,7 @@ public class PhotoAlbumClient {
 	static HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	static JsonFactory JSON_FACTORY = new JacksonFactory();
 	
-    private static boolean isInteger(String input) {
+    static boolean isInteger(String input) {
 		boolean integer = true;
 		try {
 			Integer.parseInt(input.trim());
@@ -27,43 +26,55 @@ public class PhotoAlbumClient {
 		}
 		return integer;
 	}
-	
-	public static void main(String args[]) throws IOException {
+    
+    static boolean nullOrEmpty(String[] args) {
+         if(args == null || args.length == 0) {
+             return true;
+         }
+         return false;
+    }
+    
+    static boolean validURL(String url) { 
+        try { 
+            new URL(url).toURI(); 
+            return true; 
+        } 
+        catch (Exception e) { 
+            return false; 
+        } 
+    }
+    	
+	public static void main(String[] args) {
 		
 		Integer albumId = null;
 		
-		if (args.length == 0) {
+		if (nullOrEmpty(args) || !isInteger(args[0])) {
 			System.out.println("Proper Usage: photo-album <albumId>");
 			System.exit(0);
-		} else if (isInteger(args[0]) == false) {
-			System.out.println("Proper Usage: photo-album <albumId>");
-			System.exit(0);
-		} else if (isInteger(args[0]) == true) {
+		} else {
 			albumId = Integer.parseInt(args[0].trim());
 		}	
 	
 		try {
 			
-	        HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory((HttpRequest request) -> {
-	              request.setParser(new JsonObjectParser(JSON_FACTORY));
-	        });
+	        HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory((HttpRequest request) -> 
+	        	request.setParser(new JsonObjectParser(JSON_FACTORY)));
 	        
-	        PhotoAlbumURL url = new PhotoAlbumURL("https://jsonplaceholder.typicode.com/photos");
-	        url.albumId = albumId;
-			HttpRequest request = null;
-			
-			try {
-				request = requestFactory.buildGetRequest(url);
-			} catch (IOException e) {
-				System.out.println(e.getStackTrace());
-			}
-			
-			java.lang.reflect.Type type = new TypeToken<List<PhotoAlbum>>() {}.getType();	
-			@SuppressWarnings("unchecked")
-			List<PhotoAlbum> photoAlbums = (List<PhotoAlbum>)request.execute().parseAs(type);
-			for(PhotoAlbum photoAlbum : photoAlbums) {
-				System.out.println("[" + photoAlbum.getId() + "] " + photoAlbum.getTitle());
-			}
+	        String apiURL = "https://jsonplaceholder.typicode.com/photos";
+	        if (validURL(apiURL)) {
+	        	PhotoAlbumURL url = new PhotoAlbumURL("https://jsonplaceholder.typicode.com/photos");
+		        url.albumId = albumId;
+				HttpRequest request = requestFactory.buildGetRequest(url);
+				java.lang.reflect.Type type = new TypeToken<List<PhotoAlbum>>() {}.getType();	
+				Object response = request.execute().parseAs(type);
+				@SuppressWarnings("unchecked")
+				List<PhotoAlbum> photoAlbums = (List<PhotoAlbum>)response;
+				for(PhotoAlbum photoAlbum : photoAlbums) {
+					System.out.println("[" + photoAlbum.getId() + "] " + photoAlbum.getTitle());
+				}
+	        } else {
+	        	System.out.println("photo-album encountered an error. Please ensure the API base URL is valid.");
+	        }
 		
 		} catch (Exception e) {
 			System.out.println("photo-album encountered an error. Please try again and contact the developer if the issue persists: https://github.com/gabrielbouzard/photo-album.git");

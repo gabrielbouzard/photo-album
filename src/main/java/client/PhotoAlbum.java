@@ -29,14 +29,6 @@ public class PhotoAlbum extends GenericJson {
     	this.url = "";
     	this.thumbnailUrl = "";
     }
-    
-    public PhotoAlbum(int albumId, int id, String title, String url, String thumbnailUrl) {
-    	this.albumId = albumId;
-    	this.id = id;
-    	this.title = title;
-    	this.url = url;
-    	this.thumbnailUrl = thumbnailUrl;
-    }
 
 	public String getAlbumId() {
     	return String.valueOf(this.albumId);
@@ -62,6 +54,7 @@ public class PhotoAlbum extends GenericJson {
     	return this.toString();
     }
     
+    @Override
     public String toString() {
     	return new Gson().toJson(this);
     }
